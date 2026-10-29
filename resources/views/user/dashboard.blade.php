@@ -183,6 +183,20 @@
             </div>
             @endif
 
+            {{-- Maintenance Mode Alert --}}
+            @if($isMaintenance ?? false)
+            <div class="bg-amber-50 border border-amber-200 text-amber-800 px-6 py-4 rounded-2xl relative flex items-center justify-between shadow-sm animate-fade-in">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">⚠️</span>
+                    <div>
+                        <span class="font-bold text-sm block">Mode Pemeliharaan (Maintenance Mode) Sedang Aktif</span>
+                        <span class="text-xs text-amber-700">Administrator sedang melakukan pemeliharaan sistem. Beberapa fitur mungkin sedang disesuaikan.</span>
+                    </div>
+                </div>
+                <span class="bg-amber-200/80 text-amber-900 text-[10px] font-black uppercase px-2.5 py-1 rounded-lg tracking-wider">Maintenance</span>
+            </div>
+            @endif
+
             {{-- Background / Desktop Push Notification Permission Banner --}}
             <div x-show="pushPermission !== 'granted' && pushPermission !== 'unsupported'" class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 animate-fade-in">
                 <div class="flex items-center gap-3 text-center sm:text-left">

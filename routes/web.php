@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
 
     // Admin Routes
     Route::post('/admin/broadcast', [DashboardController::class, 'broadcast'])->name('admin.broadcast');
+    Route::delete('/admin/broadcast', [DashboardController::class, 'deleteBroadcast'])->name('admin.broadcast.destroy');
     Route::delete('/admin/users/{user}', [DashboardController::class, 'deleteUser'])->name('admin.users.destroy');
     Route::post('/admin/maintenance', [DashboardController::class, 'toggleMaintenance'])->name('admin.maintenance');
 });

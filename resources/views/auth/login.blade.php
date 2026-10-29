@@ -33,6 +33,21 @@
                     <div class="h-px bg-slate-200 flex-1"></div>
                 </div>
 
+                {{-- Shortcut Pengisian Cepat Akun Demo --}}
+                <div class="mb-6 p-4 bg-slate-50 border border-slate-200/80 rounded-2xl">
+                    <span class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2.5">⚡ Masuk Cepat Akun Demo (Klik untuk auto-fill):</span>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="document.getElementById('email').value='admin@urplan.test'; document.getElementById('password').value='password123';" class="px-3 py-2.5 bg-white hover:bg-slate-900 hover:text-white border border-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 group cursor-pointer">
+                            <span>👑</span>
+                            <span>Admin UrPlan</span>
+                        </button>
+                        <button type="button" onclick="document.getElementById('email').value='budi@urplan.test'; document.getElementById('password').value='password123';" class="px-3 py-2.5 bg-white hover:bg-blue-600 hover:text-white border border-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 group cursor-pointer">
+                            <span>🎨</span>
+                            <span>Budi Kreator</span>
+                        </button>
+                    </div>
+                </div>
+
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
                 <form method="POST" action="{{ route('login') }}" class="space-y-5">

@@ -17,7 +17,7 @@ class ProjectController extends Controller
         ]);
 
         $project = Project::create([
-            'user_id' => Auth::id(),
+            'user_id' => Auth::user()->workspace_owner_id,
             'name' => $request->name,
             'description' => $request->description,
             'platform' => $request->platform ?? 'Multi-Platform',
@@ -29,7 +29,7 @@ class ProjectController extends Controller
 
     public function update(Request $request, Project $project)
     {
-        if ($project->user_id !== Auth::id()) {
+        if (!$project->isAccessibleBy(Auth::user())) {
             abort(403);
         }
 
@@ -46,7 +46,7 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
-        if ($project->user_id !== Auth::id()) {
+        if (!$project->isAccessibleBy(Auth::user())) {
             abort(403);
         }
 
@@ -57,7 +57,7 @@ class ProjectController extends Controller
 
     public function exportCsv(Project $project)
     {
-        if ($project->user_id !== Auth::id()) {
+        if (!$project->isAccessibleBy(Auth::user())) {
             abort(403);
         }
 

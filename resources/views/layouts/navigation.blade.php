@@ -38,6 +38,9 @@
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-0 py-2 border border-transparent text-sm leading-4 font-semibold rounded-md text-gray-700 bg-transparent hover:text-[#1F7FD1] focus:outline-none transition ease-in-out duration-150 group">
                             <div>{{ Auth::user()->name }}</div>
+                            @if(Auth::user()->role === 'admin')
+                                <span class="ms-2 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-slate-900 text-white rounded-md shadow-xs">Admin</span>
+                            @endif
                             <div class="ms-1 group-hover:translate-y-0.5 transition-transform">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />

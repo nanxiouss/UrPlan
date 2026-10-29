@@ -71,8 +71,12 @@
                     <a href="#pricing" class="hover:text-blue-600 transition-colors">Harga</a>
                 </div>
                 <div>
-                    <a href="/login" class="hidden sm:inline-block text-slate-500 font-bold text-sm mr-6 hover:text-blue-600 transition-colors">Log in</a>
-                    <a href="/register" class="bg-slate-900 hover:bg-blue-600 text-white px-7 py-3 rounded-2xl font-bold text-sm transition-all shadow-lg hover:shadow-blue-600/25">Get Started</a>
+                    @auth
+                        <a href="{{ route('dashboard') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-7 py-3 rounded-2xl font-bold text-sm transition-all shadow-lg hover:shadow-blue-600/25">Dashboard &rarr;</a>
+                    @else
+                        <a href="/login" class="hidden sm:inline-block text-slate-500 font-bold text-sm mr-6 hover:text-blue-600 transition-colors">Log in</a>
+                        <a href="/register" class="bg-slate-900 hover:bg-blue-600 text-white px-7 py-3 rounded-2xl font-bold text-sm transition-all shadow-lg hover:shadow-blue-600/25">Get Started</a>
+                    @endauth
                 </div>
             </div>
         </nav>
@@ -96,9 +100,15 @@
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16" data-aos="fade-up" data-aos-delay="200">
-                <a href="/register" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-[2rem] font-bold text-lg transition-all duration-300 ease-in-out shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:shadow-[0_0_60px_rgba(37,99,235,0.5)] hover:-translate-y-1">
-                    Coba Gratis Sekarang
-                </a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-[2rem] font-bold text-lg transition-all duration-300 ease-in-out shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:shadow-[0_0_60px_rgba(37,99,235,0.5)] hover:-translate-y-1">
+                        Buka Dashboard Saya &rarr;
+                    </a>
+                @else
+                    <a href="/register" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-[2rem] font-bold text-lg transition-all duration-300 ease-in-out shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:shadow-[0_0_60px_rgba(37,99,235,0.5)] hover:-translate-y-1">
+                        Coba Gratis Sekarang
+                    </a>
+                @endauth
             </div>
 
             <div class="mt-16 relative mx-auto max-w-5xl animate-float" data-aos="fade-out" data-aos-delay="400">

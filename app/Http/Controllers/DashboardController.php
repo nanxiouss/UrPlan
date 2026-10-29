@@ -18,31 +18,60 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         // --- 1. LOGIKA UNTUK ADMIN ---
-        if ($user->name === 'Admin UrPlan' || $user->email === 'admin@urplan.com') {
+        if ($user->role === 'admin' || $user->name === 'Admin UrPlan' || $user->email === 'admin@urplan.com' || $user->email === 'admin@urplan.test') {
 
             // Hitung total statistik global
             $totalUsers = User::count();
+            $totalCreators = User::where('role', 'user')->whereNull('owner_id')->count();
+            $totalTeamMembers = User::where('role', 'team_member')->orWhereNotNull('owner_id')->count();
             $totalTasks = Task::count();
             $totalProjects = Project::count();
+            $publishedTasks = Task::where('status', 'Published')->count();
+
+            // Distribusi platform konten
+            $tasksByPlatform = Task::selectRaw('platform_distribution, count(*) as total')
+                ->whereNotNull('platform_distribution')
+                ->groupBy('platform_distribution')
+                ->pluck('total', 'platform_distribution')
+                ->toArray();
+
+            // Distribusi status workflow
+            $tasksByStatus = Task::selectRaw('status, count(*) as total')
+                ->groupBy('status')
+                ->pluck('total', 'status')
+                ->toArray();
 
             // Ambil seluruh user non-admin beserta relasi untuk modal 'Lihat Semua' & 'Detail'
             $allUsers = User::where('id', '!=', $user->id)
                 ->withCount(['projects', 'habits'])
                 ->with(['projects' => function($q) {
-                    $q->withCount('tasks');
+                    $q->withCount('tasks')->orderBy('created_at', 'desc');
                 }])
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-            $recentUsers = $allUsers->take(5);
+            $recentUsers = $allUsers->take(6);
             $isMaintenance = cache()->get('system_maintenance_mode', false);
+
+            // Riwayat broadcast pengumuman terkini
+            $recentBroadcasts = Notification::select('title', 'message', 'created_at', \Illuminate\Support\Facades\DB::raw('count(*) as recipients_count'))
+                ->groupBy('title', 'message', 'created_at')
+                ->latest('created_at')
+                ->take(5)
+                ->get();
 
             return view('admin.dashboard', compact(
                 'totalUsers',
+                'totalCreators',
+                'totalTeamMembers',
                 'totalTasks',
                 'totalProjects',
+                'publishedTasks',
+                'tasksByPlatform',
+                'tasksByStatus',
                 'recentUsers',
                 'allUsers',
+                'recentBroadcasts',
                 'isMaintenance'
             ));
         }
@@ -120,20 +149,21 @@ class DashboardController extends Controller
             'teamMembers' => $teamMembers,
             'managedMembers' => $managedMembers,
             'isTeamLeader' => ($user->owner_id === null),
+            'isMaintenance' => cache()->get('system_maintenance_mode', false),
         ]);
     }
 
     public function broadcast(Request $request)
     {
         $user = Auth::user();
-        if ($user->name !== 'Admin UrPlan' && $user->email !== 'admin@urplan.com') {
+        if ($user->role !== 'admin' && $user->name !== 'Admin UrPlan' && $user->email !== 'admin@urplan.com' && $user->email !== 'admin@urplan.test') {
             abort(403);
         }
 
         $request->validate([
             'title' => 'required|string|max:255',
             'message' => 'required|string',
-            'target' => 'required|string',
+            'target' => 'required',
         ]);
 
         if ($request->target === 'all') {
@@ -154,10 +184,29 @@ class DashboardController extends Controller
         return back()->with('success', 'Broadcast pengumuman berhasil dikirimkan ke ' . $targetUsers->count() . ' pengguna!');
     }
 
+    public function deleteBroadcast(Request $request)
+    {
+        $admin = Auth::user();
+        if ($admin->role !== 'admin' && $admin->name !== 'Admin UrPlan' && $admin->email !== 'admin@urplan.com' && $admin->email !== 'admin@urplan.test') {
+            abort(403);
+        }
+
+        $request->validate([
+            'title' => 'required|string',
+            'created_at' => 'required',
+        ]);
+
+        $deletedCount = Notification::where('title', $request->title)
+            ->where('created_at', $request->created_at)
+            ->delete();
+
+        return back()->with('success', "Pengumuman siaran berhasil ditarik/dihapus dari {$deletedCount} pengguna.");
+    }
+
     public function deleteUser(User $user)
     {
         $admin = Auth::user();
-        if ($admin->name !== 'Admin UrPlan' && $admin->email !== 'admin@urplan.com') {
+        if ($admin->role !== 'admin' && $admin->name !== 'Admin UrPlan' && $admin->email !== 'admin@urplan.com' && $admin->email !== 'admin@urplan.test') {
             abort(403);
         }
 
@@ -174,7 +223,7 @@ class DashboardController extends Controller
     public function toggleMaintenance(Request $request)
     {
         $admin = Auth::user();
-        if ($admin->name !== 'Admin UrPlan' && $admin->email !== 'admin@urplan.com') {
+        if ($admin->role !== 'admin' && $admin->name !== 'Admin UrPlan' && $admin->email !== 'admin@urplan.com' && $admin->email !== 'admin@urplan.test') {
             abort(403);
         }
 
