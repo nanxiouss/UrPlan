@@ -8,10 +8,10 @@
             <div class="flex items-center">
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-0 group">
-                        <img src="{{ asset('images/logo-1.png') }}" alt="UrPlan Logo" class="h-14 w-auto object-contain transition-all duration-300 transform group-hover:scale-105">
+                        <img src="{{ asset('images/logo-1.png') }}" alt="Our Plan Logo" class="h-14 w-auto object-contain transition-all duration-300 transform group-hover:scale-105">
 
                         <span class="font-extrabold text-2xl tracking-tighter bg-gradient-to-r from-[#1F7FD1] to-[#0B4FB3] text-transparent bg-clip-text hidden sm:block -ml-2">
-                            UrPlan
+                            Our Plan
                         </span>
                     </a>
                 </div>

@@ -22,6 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'owner_id',
+        'role',
+        'position',
     ];
 
     /**
@@ -46,9 +49,64 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function projects()
     {
         return $this->hasMany(Project::class);
     }
 
+    public function habits()
+    {
+        return $this->hasMany(Habit::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    // Anggota tim yang berada di bawah user ini (jika user adalah leader/owner)
+    public function teamMembers()
+    {
+        return $this->hasMany(User::class, 'owner_id');
+    }
+
+    // Pemilik / Leader dari user ini (jika user adalah team_member)
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    // Tugas yang ditugaskan ke user ini
+    public function assignedTasks()
+    {
+        return $this->belongsToMany(Task::class, 'task_user', 'user_id', 'task_id')->withTimestamps();
+    }
+
+    // ID pemilik workspace
+    public function getWorkspaceOwnerIdAttribute()
+    {
+        return $this->owner_id ?: $this->id;
+    }
+
+    // Mengambil seluruh user dalam tim (Leader + semua anggota)
+    public function getTeamWithLeaderAttribute()
+    {
+        $ownerId = $this->workspace_owner_id;
+        return User::where('id', $ownerId)
+            ->orWhere('owner_id', $ownerId)
+            ->orderBy('id', 'asc')
+            ->get();
+    }
+
+    // Helper untuk inisial nama
+    public function getInitialsAttribute()
+    {
+        $words = explode(' ', trim($this->name));
+        $initials = '';
+        foreach (array_slice($words, 0, 2) as $w) {
+            $initials .= strtoupper(mb_substr($w, 0, 1));
+        }
+        return $initials ?: 'U';
+    }
 }

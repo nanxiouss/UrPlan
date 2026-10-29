@@ -22,4 +22,11 @@ class Project extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    // Cek apakah user berhak mengakses project (baik sebagai owner maupun sebagai team member)
+    public function isAccessibleBy(User $user): bool
+    {
+        $ownerId = $user->workspace_owner_id;
+        return $this->user_id === $ownerId;
+    }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UrPlan</title>
+    <title>Our Plan</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -59,9 +59,9 @@
         <nav class="sticky top-4 z-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
             <div class="flex justify-between items-center bg-white/70 backdrop-blur-2xl border border-white/50 px-6 py-4 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
                 <div class="flex items-center gap-3">
-                    <img src="/images/logo-1.png" alt="UrPlan Logo" class="h-14 w-auto object-contain transition-transform duration-300 hover:scale-110">
+                    <img src="/images/logo-1.png" alt="Our Plan Logo" class="h-14 w-auto object-contain transition-transform duration-300 hover:scale-110">
                     <span class="font-extrabold text-2xl tracking-tighter bg-gradient-to-r from-[#1F7FD1] to-[#0B4FB3] text-transparent bg-clip-text hidden sm:block -ml-2">
-                            UrPlan
+                            Our Plan
                         </span>
                 </div>
                 <div class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-500">
@@ -83,7 +83,7 @@
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-600"></span>
                 </span>
-                <span class="text-blue-900 text-xs font-black uppercase tracking-[0.2em]">UrPlan</span>
+                <span class="text-blue-900 text-xs font-black uppercase tracking-[0.2em]">Our Plan</span>
             </div>
 
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tighter" data-aos="zoom-in">
@@ -92,7 +92,7 @@
             </h1>
 
             <p class="max-w-2xl mx-auto text-slate-500 text-lg md:text-xl font-medium leading-relaxed mb-10" data-aos="fade-up" data-aos-delay="100">
-                Lebih dari sekadar to-do list. UrPlan menggabungkan Manajemen Tugas, Kalender Editorial, dan Pelacak Kebiasaan khusus untuk Konten Kreator.
+                Lebih dari sekadar to-do list. Our Plan menggabungkan Manajemen Tugas, Kalender Editorial, dan Pelacak Kebiasaan khusus untuk Konten Kreator.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16" data-aos="fade-up" data-aos-delay="200">
@@ -567,7 +567,7 @@
                         Dapatkan notifikasi pintar melalui Email, Push Notification, atau integrasikan langsung dengan kalender bawaan HP Anda.
                     </p>
                     <button class="bg-white text-blue-700 hover:scale-105 hover:text-blue-500 px-10 py-4 rounded-full font-black text-lg transition-all duration-200 shadow-xl">
-                        Mulai Gunakan UrPlan — Gratis
+                        Mulai Gunakan Our Plan — Gratis
                     </button>
                 </div>
             </div>
@@ -577,10 +577,10 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-10">
                 <div class="text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
-                        <img src="/images/logo-1.png" alt="UrPlan Logo" class="h-14 w-auto object-contain transition-transform duration-300 hover:scale-110">
-                        <span class="text-white font-black text-xl tracking-tight">UrPlan</span>
+                        <img src="/images/logo-1.png" alt="Our Plan Logo" class="h-14 w-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <span class="text-white font-black text-xl tracking-tight">Our Plan</span>
                     </div>
-                    <p class="text-slate-400 text-sm font-medium">© 2026 UrPlan Inc. Elevating creators worldwide.</p>
+                    <p class="text-slate-400 text-sm font-medium">© 2026 Our Plan Inc. Elevating creators worldwide.</p>
                 </div>
                 <div class="flex gap-8 text-sm font-semibold text-slate-400">
                     <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
